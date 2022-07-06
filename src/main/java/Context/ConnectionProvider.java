@@ -11,7 +11,7 @@ private static Connection connection = null;
 		if(connection == null)
 		{
 			Class.forName("com.mysql.cj.jdbc.Driver");
-			connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/testJava","root","123456789");
+			connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/shop_coin","root","123456789");
 			System.out.print("cennected");
 		}
 		return connection;
