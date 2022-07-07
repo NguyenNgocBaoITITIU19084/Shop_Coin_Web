@@ -1,3 +1,9 @@
+<%@page import="java.util.List" %>
+<%@page import="java.util.ArrayList" %>
+<%@page import="Context.*" %>
+<%@page import="DAO.*" %>
+<%@page import="Controller.*" %>
+<%@page import="Entity.*" %>
 <!doctype html>
 <html class="no-js" lang="zxx">
 <head>
@@ -76,7 +82,7 @@
 						<div class="col-lg-6 col-md-6">
 							<div class="account_form register">
 								<h2>Register</h2>
-								<form action="#" id="register">
+								<form action="../RegisterServlet" method="POST" id="register">
 									<p>
 										<label>User Name <span>*</span></label> <input type="text" name="userName">
 									</p>
@@ -90,12 +96,37 @@
 										<label>Confirm Passwords <span>*</span></label> <input
 											type="password" name="rePass">
 									</p>
+									
 									<div class="g-recaptcha" data-sitekey="6LdfjcwgAAAAAM9iAtcvFmbKryl3XnTvt7kbamIA"></div>
+									<p id="error" style="color:red"></p>
+									<%
+										String checking = (String) session.getAttribute("checking");
+										String message  = (String) session.getAttribute("message");
+										if("error".equals(checking)){ %>
+											<p style="color:red"><%= message %></p>	
+									<% 	}
+									%>
+					
 									<div class="login_submit">
 										<button type="submit">Register</button>
 									</div>
 								</form>
-								
+								<script>
+                                            window.onload = function(){
+                                                let isValid = false;
+                                                const form = document.getElementById("register");
+                                                const error = document.getElementById("error");
+                                                form.addEventListener("submit",function(event){
+                                                    event.preventDefault();
+                                                    const response = grecaptcha.getResponse();
+                                                    if(response){
+                                                        form.submit();
+                                                    }else{
+                                                        error.innerHTML = 'Please, check Recaptcha';
+                                                    }
+                                                });
+                                            }
+                                        </script>
 							</div>
 						</div>
 
