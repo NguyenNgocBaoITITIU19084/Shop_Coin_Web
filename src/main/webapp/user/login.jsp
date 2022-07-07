@@ -60,7 +60,7 @@
 						<div class="col-lg-6 col-md-6">
 							<div class="account_form">
 								<h2>login</h2>
-								<form action="#">
+								<form action="#" id="login">
 									<p>
 										<label>Email <span>*</span></label> <input
 											type="text" name="email">
@@ -68,12 +68,30 @@
 									<p>
 										<label>Passwords <span>*</span></label> <input type="password" name="pass">
 									</p>
+									<div class="g-recaptcha" data-sitekey="6LdfjcwgAAAAAM9iAtcvFmbKryl3XnTvt7kbamIA"></div>
+									<p id="error" style="color:red"></p>
 									<div class="login_submit">
 										<button type="submit">login</button>
 										</label> <a href="#">Lost your password?</a>
 									</div>
-
+								
 								</form>
+								<script>
+                                            window.onload = function(){
+                                                let isValid = false;
+                                                const form = document.getElementById("login");
+                                                const error = document.getElementById("error");
+                                                form.addEventListener("submit",function(event){
+                                                    event.preventDefault();
+                                                    const response = grecaptcha.getResponse();
+                                                    if(response){
+                                                        form.submit();
+                                                    }else{
+                                                        error.innerHTML = 'Please, check Recaptcha';
+                                                    }
+                                                });
+                                            }
+                                        </script>
 							</div>
 						</div>
 						<!--login area start-->

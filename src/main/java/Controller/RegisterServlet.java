@@ -54,17 +54,21 @@ public class RegisterServlet extends HttpServlet {
 						// admin"admin is admin account
 						if(!"admin@admin".equals(email)) {
 							Account account = new Account(email,pass);
-							AccountDetail AccountDetail = new AccountDetail(userName);
 							RegisterDAO dao = new RegisterDAO();
 							// insert information into database
 								String resultInsertAccount = dao.InsertAccount(account);
-								String resultInsertAccountDetail = dao.InsertAccountDetail(AccountDetail);
+								int AccountID = dao.getAccountID(email);
+								AccountDetail AccountDetail = new AccountDetail(userName);
+								String resultInsertAccountDetail = dao.InsertAccountDetail(AccountDetail,AccountID);
 								
 								if("successfully".equals(resultInsertAccount) && "successfully".equals(resultInsertAccountDetail)) {
+									SendEmail send = new SendEmail();
+									send.SendEmail(email,userName);
 									message = "Successfully Register Account";
 									session.setAttribute("checking", checking);
 									session.setAttribute("message", message);
 									response.sendRedirect("./user/login.jsp");
+									
 								}else {
 									message = "This account is already exist!";
 									session.setAttribute("checking", checking);

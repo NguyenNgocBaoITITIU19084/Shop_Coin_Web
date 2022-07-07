@@ -12,7 +12,7 @@ create table Account(
     primary key (AccountID)
 );
 create table AccountDetail(
-	AccountID int not null unique auto_increment,
+	AccountID int not null,
     BankID int,
     userName varchar(100) not null,
     AccountNumber varchar(10) unique,

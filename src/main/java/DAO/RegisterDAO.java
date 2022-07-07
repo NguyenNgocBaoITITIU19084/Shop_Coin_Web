@@ -1,6 +1,7 @@
 package DAO;
 
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import Context.ConnectionProvider;
@@ -25,13 +26,14 @@ public class RegisterDAO {
 		return result;
 	}
 	
-	public String InsertAccountDetail(AccountDetail accountDetail) {
+	public String InsertAccountDetail(AccountDetail accountDetail, int AccountID) {
 		String result = "successfully";
 		try {
-			String query = "insert into AccountDetail(userName) value(?);";
+			String query = "insert into AccountDetail(AccountID,userName) value(?,?)";
 			ConnectionProvider con = new ConnectionProvider();
 			PreparedStatement pst = con.getConnection().prepareStatement(query);
-			pst.setString(1, accountDetail.getUserName());
+			pst.setInt(1, AccountID);
+			pst.setString(2, accountDetail.getUserName());
 			pst.executeUpdate();
 
 		} catch (Exception e) {
@@ -39,5 +41,22 @@ public class RegisterDAO {
 			result = "failed";
 		}
 		return result;
+	}
+	public int getAccountID(String email) {
+		int id = 0;
+		try {
+			String query ="select AccountID from Account where AccountName = ?";
+			ConnectionProvider con = new ConnectionProvider();
+			PreparedStatement pst = con.getConnection().prepareStatement(query);
+			pst.setString(1, email);
+			ResultSet rs = pst.executeQuery();
+			while(rs.next()) {
+				id = rs.getInt("AccountID");
+			}
+
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		return id; 
 	}
 }
