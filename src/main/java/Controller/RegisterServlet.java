@@ -40,7 +40,7 @@ public class RegisterServlet extends HttpServlet {
 			message= "Please, input all fileds!";
 			session.setAttribute("checking", checking);
 			session.setAttribute("message", message);
-			response.sendRedirect("./user/login.jsp");
+			response.sendRedirect("login.jsp");
 		}else {
 //			checking valid email
 			EmailChecking EmailChecking = new EmailChecking();
@@ -67,32 +67,32 @@ public class RegisterServlet extends HttpServlet {
 									message = "Successfully Register Account";
 									session.setAttribute("checking", checking);
 									session.setAttribute("message", message);
-									response.sendRedirect("./user/login.jsp");
+									response.sendRedirect("login.jsp");
 									
 								}else {
 									message = "This account is already exist!";
 									session.setAttribute("checking", checking);
 									session.setAttribute("message", message);
-									response.sendRedirect("./user/login.jsp");
+									response.sendRedirect("login.jsp");
 								}
 						}
 					}else {
 						message = "The password are not matching. please, intput again!";
 						session.setAttribute("checking", checking);
 						session.setAttribute("message", message);
-						response.sendRedirect("./user/login.jsp");
+						response.sendRedirect("login.jsp");
 					}
 				}else {
 					message = "The Password have to contain a digit, a lowercase, a uppercase, and 8 letters long";
 					session.setAttribute("checking", checking);
 					session.setAttribute("message", message);
-					response.sendRedirect("./user/login.jsp");
+					response.sendRedirect("login.jsp");
 				}
 			}else {
 				message = "Please, input valid email";
 				session.setAttribute("message", message);
 				session.setAttribute("checking", checking);
-				response.sendRedirect("./user/login.jsp");
+				response.sendRedirect("login.jsp");
 			}
 		}
 	}
