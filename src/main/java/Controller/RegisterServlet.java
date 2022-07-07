@@ -72,7 +72,6 @@ public class RegisterServlet extends HttpServlet {
 									response.sendRedirect("./user/login.jsp");
 								}
 						}
-
 					}else {
 						message = "The password are not matching. please, intput again!";
 						session.setAttribute("checking", checking);
