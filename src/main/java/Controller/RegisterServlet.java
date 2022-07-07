@@ -51,25 +51,28 @@ public class RegisterServlet extends HttpServlet {
 				if(isValidPass == true) {
 					// checking pass and rePass matching or not 
 					if(pass.equals(rePass)) {
-						Account account = new Account(email,pass);
-						AccountDetail AccountDetail = new AccountDetail(userName);
-						RegisterDAO dao = new RegisterDAO();
-						// insert information into database
-						try {
-							String resultInsertAccount = dao.InsertAccount(account);
-							String resultInsertAccountDetail = dao.InsertAccountDetail(AccountDetail);
-							message = "Successfully Register Account";
-							session.setAttribute("checking", checking);
-							session.setAttribute("message", message);
-							response.sendRedirect("./user/login.jsp");
-						} catch (ClassNotFoundException | SQLException e) {
-							message = "Failed Register Account";
-							session.setAttribute("checking", checking);
-							session.setAttribute("message", message);
-							response.sendRedirect("./user/login.jsp");
-							e.printStackTrace();
+						// admin"admin is admin account
+						if(!"admin@admin".equals(email)) {
+							Account account = new Account(email,pass);
+							AccountDetail AccountDetail = new AccountDetail(userName);
+							RegisterDAO dao = new RegisterDAO();
+							// insert information into database
+								String resultInsertAccount = dao.InsertAccount(account);
+								String resultInsertAccountDetail = dao.InsertAccountDetail(AccountDetail);
+								
+								if("successfully".equals(resultInsertAccount) && "successfully".equals(resultInsertAccountDetail)) {
+									message = "Successfully Register Account";
+									session.setAttribute("checking", checking);
+									session.setAttribute("message", message);
+									response.sendRedirect("./user/login.jsp");
+								}else {
+									message = "This account is already exist!";
+									session.setAttribute("checking", checking);
+									session.setAttribute("message", message);
+									response.sendRedirect("./user/login.jsp");
+								}
 						}
-						
+
 					}else {
 						message = "The password are not matching. please, intput again!";
 						session.setAttribute("checking", checking);

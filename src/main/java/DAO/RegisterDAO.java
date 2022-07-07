@@ -8,7 +8,7 @@ import Entity.Account;
 import Entity.AccountDetail;
 
 public class RegisterDAO {
-	public String InsertAccount(Account account) throws ClassNotFoundException, SQLException {
+	public String InsertAccount(Account account){
 		String result = "successfully";
 		try {
 			String query = "insert into Account(AccountName,password) value(?,?);";
@@ -25,7 +25,7 @@ public class RegisterDAO {
 		return result;
 	}
 	
-	public String InsertAccountDetail(AccountDetail accountDetail) throws ClassNotFoundException, SQLException {
+	public String InsertAccountDetail(AccountDetail accountDetail) {
 		String result = "successfully";
 		try {
 			String query = "insert into AccountDetail(userName) value(?);";
