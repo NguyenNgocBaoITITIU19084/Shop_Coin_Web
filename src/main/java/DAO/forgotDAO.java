@@ -7,7 +7,7 @@ import Context.ConnectionProvider;
 import Entity.Account;
 
 public class forgotDAO {
-	public String CheckingExist(String email,String userName) {
+	public String CheckingExistEmail(String email,String userName) {
 		String result = "";
 		try {
 			String query ="select a.AccountName, d.userName from Account as a join AccountDetail as d on a.AccountID = d.AccountID where a.AccountName = ? and d.userName = ? ";
@@ -41,5 +41,23 @@ public class forgotDAO {
 			result = "failed";
 		}
 		return result;
+	}
+	public Account CheckingExistToken(String token) {
+		Account userName = null;
+		try {
+			String query ="select AccountName from Account where token = ?";
+			ConnectionProvider con = new ConnectionProvider();
+			PreparedStatement pst = con.getConnection().prepareStatement(query);
+			pst.setString(1, token);
+			ResultSet rs = pst.executeQuery();
+			while(rs.next()) {
+				userName = new Account();
+				userName.setAccountName(rs.getString("AccountName"));
+			}
+
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		return userName; 
 	}
 }

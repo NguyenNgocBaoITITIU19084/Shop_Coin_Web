@@ -10,7 +10,7 @@ import java.util.Properties;
 
 public class SendEmail {
 
-    public void SendEmail(String email, String userName,String sub, String text) {
+    public void SendEmail(String email, String userName,String sub, String text,String action) {
 
         final String username = "shop.coin.test2@gmail.com";
         final String password = "enivxsngxslqoqcx";
@@ -38,7 +38,14 @@ public class SendEmail {
             );
             message.setSubject(sub);
             
-            message.setContent("Dear "+userName+", <br>"+text,"text/html");
+            if("register".equals(action)) {
+            	 message.setContent("Dear "+userName+", <br>"+text,"text/html");
+            }
+            if("changePass".equals(action)) {
+            	message.setContent("Dear "+userName+", <br>"
+            +"this is the link to <a href=http://localhost:8088/Shop_Coin_Web/GetToken?Token="+text+">Change Password</a>","text/html");
+            }
+           
 
             Transport.send(message);
 

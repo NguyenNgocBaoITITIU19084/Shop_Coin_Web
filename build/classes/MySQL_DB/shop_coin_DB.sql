@@ -9,6 +9,7 @@ create table Account(
 	AccountID int not null unique auto_increment,
     AccountName varchar(100) not null unique,
     password varchar(100) not null,
+    token varchar(500) unique,
     primary key (AccountID)
 );
 create table AccountDetail(

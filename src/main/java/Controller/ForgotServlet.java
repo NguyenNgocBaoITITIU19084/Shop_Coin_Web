@@ -43,7 +43,7 @@ public class ForgotServlet extends HttpServlet {
 			boolean isValidEmail = EmailChecking.validate(email);
 			if(isValidEmail == true) {
 				forgotDAO dao = new forgotDAO();
-				String result = dao.CheckingExist(email, userName);
+				String result = dao.CheckingExistEmail(email, userName);
 				if("exist".equals(result)) {
 					createJWT create = new createJWT();
 					String tokenLink =  create.CreateJWT(userName, email);
@@ -51,9 +51,9 @@ public class ForgotServlet extends HttpServlet {
 					String resultToken = forgotDAO.InsertTokenLink(tokenLink,email);
 					if("successfully".equals(resultToken)) {
 						String sub = "Shop Coin - Change Password Link";
-						String text = "Token Link: "+tokenLink;
+						String text = tokenLink;
 						SendEmail send = new SendEmail();
-						send.SendEmail(email, userName, sub, text);
+						send.SendEmail(email, userName, sub, text,"changePass");
 						
 						
 						smg = "The link change password is already send to your email, please checking this";
