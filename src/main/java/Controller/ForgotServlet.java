@@ -36,7 +36,7 @@ public class ForgotServlet extends HttpServlet {
 		if(userName.length() == 0 || email.length() == 0) {
 			smg = "Please, input all fields!";
 			session.setAttribute("checkingForgot", checking);
-			session.setAttribute("smg", smg);
+			session.setAttribute("smgForgot", smg);
 			response.sendRedirect("forgot.jsp");
 		}else {
 			EmailChecking EmailChecking = new EmailChecking();
@@ -58,24 +58,24 @@ public class ForgotServlet extends HttpServlet {
 						
 						smg = "The link change password is already send to your email, please checking this";
 						session.setAttribute("checkingForgot", checking);
-						session.setAttribute("smg", smg);
+						session.setAttribute("smgForgot", smg);
 						response.sendRedirect("forgot.jsp");
 					}else {
 						smg = "Fail to send a link change password to your email";
 						session.setAttribute("checkingForgot", checking);
-						session.setAttribute("smg", smg);
+						session.setAttribute("smgForgot", smg);
 						response.sendRedirect("forgot.jsp");
 					}
 				}else {
 					smg = "The email or userName is not correct! Please input again!";
 					session.setAttribute("checkingForgot", checking);
-					session.setAttribute("smg", smg);
+					session.setAttribute("smgForgot", smg);
 					response.sendRedirect("forgot.jsp");
 				}
 			}else {
 				smg = "Please, input valid email";
 				session.setAttribute("checkingForgot", checking);
-				session.setAttribute("smg", smg);
+				session.setAttribute("smgForgot", smg);
 				response.sendRedirect("forgot.jsp");
 			}
 		}

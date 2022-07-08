@@ -69,10 +69,12 @@
 										<p id="error" style="color:red"></p>
 										<%
 											String checking = (String) session.getAttribute("checkingForgot");
-											String smg = (String) session.getAttribute("smg");
+											String smg = (String) session.getAttribute("smgForgot");
 											if("error".equals(checking)){ %>
 												<p style="color:red"><%= smg %></p>
 										<%	}
+											smg ="";
+											checking ="";
 										%>
 										<div class="login_submit">
 											<button type="submit">Confirm</button>

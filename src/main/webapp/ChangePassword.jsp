@@ -1,3 +1,14 @@
+<%@page import="java.util.List" %>
+<%@page import="java.util.ArrayList" %>
+<%@page import="Context.*" %>
+<%@page import="DAO.*" %>
+<%@page import="Controller.*" %>
+<%@page import="Entity.*" %>
+<%
+	if(session.getAttribute("validate") == null){
+		response.sendRedirect("login.jsp");
+	}
+%>
 <!doctype html>
 <html class="no-js" lang="zxx">
 <head>
@@ -55,27 +66,30 @@
 							<div class="col-lg-6 col-md-6">
 								<div class="account_form">
 									<h2>Change Password</h2>
-									<form action="#" id="change" method="POST">
+									<form action="ChangePasswordServlet" id="change" method="POST">
 										<p>
 											<label>New Password <span>*</span></label> <input
-												type="text" name="pass">
+												type="password" name="pass">
 										</p>
 										<p>
 											<label>Confirm Password <span>*</span></label> <input
-												type="text" name="rePass">
+												type="password" name="rePass">
 										</p>
 										<div class="g-recaptcha" data-sitekey="6LdfjcwgAAAAAM9iAtcvFmbKryl3XnTvt7kbamIA"></div>
 										<p id="error" style="color:red"></p>
 										<%
-											String checking = (String) session.getAttribute("checking");
-											String smg = (String) session.getAttribute("smg");
+											String checking = (String) session.getAttribute("checkingCP");
+											String smg = (String) session.getAttribute("smgCP");
 											if("error".equals(checking)){ %>
 												<p style="color:red"><%= smg %></p>
 										<%	}
+											//clear all sesion
+											smg = "";
+											checking = "";
 										%>
 										<div class="login_submit">
 											<button type="submit">Change Password</button>
-											
+											</label> <a href="login.jsp">Click here to login</a>
 										</div>
 									</form>
 									

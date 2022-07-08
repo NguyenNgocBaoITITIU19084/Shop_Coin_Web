@@ -34,9 +34,11 @@ public class GetToken extends HttpServlet {
 		forgotDAO dao = new forgotDAO();
 		Account account = dao.CheckingExistToken(getToken);
 		if(account.getAccountName() != null) {
+			String validate = account.getAccountName();
+			session.setAttribute("validate", validate);
 			response.sendRedirect("ChangePassword.jsp");
 		}else {
-			smg = "Fail to send a link change password to your email";
+			smg = "This link is not valid!";
 			session.setAttribute("checkingForgot", checking);
 			session.setAttribute("smg", smg);
 			response.sendRedirect("forgot.jsp");

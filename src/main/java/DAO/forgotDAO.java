@@ -60,4 +60,37 @@ public class forgotDAO {
 		}
 		return userName; 
 	}
+	public String ChangePassword(String email,String pass){
+		String result = "successfully";
+		try {
+			String query = "update Account set password = ? where AccountName = ? ";
+			ConnectionProvider con = new ConnectionProvider();
+			PreparedStatement pst = con.getConnection().prepareStatement(query);
+			pst.setString(1, pass);
+			pst.setString(2, email);
+			pst.executeUpdate();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			result = "failed";
+		}
+		return result;
+	}
+	public String DeteleToken(String email){
+		String result = "successfully";
+		String empty = "";
+		try {
+			String query = "update Account set token = ? where AccountName = ?";
+			ConnectionProvider con = new ConnectionProvider();
+			PreparedStatement pst = con.getConnection().prepareStatement(query);
+			pst.setString(1, empty);
+			pst.setString(2, email);
+			pst.executeUpdate();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			result = "failed";
+		}
+		return result;
+	}
 }
