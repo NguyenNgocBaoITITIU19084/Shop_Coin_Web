@@ -62,8 +62,10 @@ public class RegisterServlet extends HttpServlet {
 								String resultInsertAccountDetail = dao.InsertAccountDetail(AccountDetail,AccountID);
 								
 								if("successfully".equals(resultInsertAccount) && "successfully".equals(resultInsertAccountDetail)) {
+									String sub = "Shop.Coin.Test2 - Successfully Created An Account";
+									String text = "You had successfully created an Account at Shop Coin. Have good time for shooping!";
 									SendEmail send = new SendEmail();
-									send.SendEmail(email,userName);
+									send.SendEmail(email,userName,sub,text);
 									message = "Successfully Register Account";
 									session.setAttribute("checking", checking);
 									session.setAttribute("message", message);

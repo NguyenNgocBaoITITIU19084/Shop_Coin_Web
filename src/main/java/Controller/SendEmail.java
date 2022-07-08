@@ -10,7 +10,7 @@ import java.util.Properties;
 
 public class SendEmail {
 
-    public void SendEmail(String email, String userName) {
+    public void SendEmail(String email, String userName,String sub, String text) {
 
         final String username = "shop.coin.test2@gmail.com";
         final String password = "enivxsngxslqoqcx";
@@ -36,9 +36,8 @@ public class SendEmail {
                     Message.RecipientType.TO,
                     InternetAddress.parse(email)
             );
-            message.setSubject("Shop.Coin.Test2 - Successfully Created An Account");
-            message.setText("Dear "+userName+", "
-                    + "\n\n You had successfully created an Account at Shop Coin Test 2. Have good time for shopping");
+            message.setSubject(sub);
+            message.setText("Dear "+userName+",/n"+text);
 
             Transport.send(message);
 

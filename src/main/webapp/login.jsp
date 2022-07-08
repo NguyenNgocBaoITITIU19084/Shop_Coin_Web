@@ -77,7 +77,7 @@
 									%>
 									<div class="login_submit">
 										<button type="submit">login</button>
-										</label> <a href="#">Lost your password?</a>
+										</label> <a href="forgot.jsp">Lost your password?</a>
 									</div>
 								</form>
 							</div>
