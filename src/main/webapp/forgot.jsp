@@ -68,7 +68,7 @@
 										<div class="g-recaptcha" data-sitekey="6LdfjcwgAAAAAM9iAtcvFmbKryl3XnTvt7kbamIA"></div>
 										<p id="error" style="color:red"></p>
 										<%
-											String checking = (String) session.getAttribute("checking");
+											String checking = (String) session.getAttribute("checkingForgot");
 											String smg = (String) session.getAttribute("smg");
 											if("error".equals(checking)){ %>
 												<p style="color:red"><%= smg %></p>

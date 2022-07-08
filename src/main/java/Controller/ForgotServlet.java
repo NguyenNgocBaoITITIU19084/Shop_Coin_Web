@@ -11,6 +11,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import DAO.forgotDAO;
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jws;
 
 /**
  * Servlet implementation class ForgotServlet
@@ -31,13 +33,9 @@ public class ForgotServlet extends HttpServlet {
 		String checking = "error";
 		String smg = "";
 		
-		
-		out.print("userName: "+userName);
-		out.print("Email: "+email);
-		
 		if(userName.length() == 0 || email.length() == 0) {
 			smg = "Please, input all fields!";
-			session.setAttribute("checking", checking);
+			session.setAttribute("checkingForgot", checking);
 			session.setAttribute("smg", smg);
 			response.sendRedirect("forgot.jsp");
 		}else {
@@ -47,19 +45,36 @@ public class ForgotServlet extends HttpServlet {
 				forgotDAO dao = new forgotDAO();
 				String result = dao.CheckingExist(email, userName);
 				if("exist".equals(result)) {
-					String sub = "Shop Coin Test 2 - Change Password Link";
-					String text = "Here is the link to Change Password";
-					SendEmail send = new SendEmail();
-					send.SendEmail(email, userName, sub, text);
+					createJWT create = new createJWT();
+					String tokenLink =  create.CreateJWT(userName, email);
+					forgotDAO forgotDAO = new forgotDAO();
+					String resultToken = forgotDAO.InsertTokenLink(tokenLink,email);
+					if("successfully".equals(resultToken)) {
+						String sub = "Shop Coin - Change Password Link";
+						String text = "Token Link: "+tokenLink;
+						SendEmail send = new SendEmail();
+						send.SendEmail(email, userName, sub, text);
+						
+						
+						smg = "The link change password is already send to your email, please checking this";
+						session.setAttribute("checkingForgot", checking);
+						session.setAttribute("smg", smg);
+						response.sendRedirect("forgot.jsp");
+					}else {
+						smg = "Fail to send a link change password to your email";
+						session.setAttribute("checkingForgot", checking);
+						session.setAttribute("smg", smg);
+						response.sendRedirect("forgot.jsp");
+					}
 				}else {
 					smg = "The email or userName is not correct! Please input again!";
-					session.setAttribute("checking", checking);
+					session.setAttribute("checkingForgot", checking);
 					session.setAttribute("smg", smg);
 					response.sendRedirect("forgot.jsp");
 				}
 			}else {
 				smg = "Please, input valid email";
-				session.setAttribute("checking", checking);
+				session.setAttribute("checkingForgot", checking);
 				session.setAttribute("smg", smg);
 				response.sendRedirect("forgot.jsp");
 			}

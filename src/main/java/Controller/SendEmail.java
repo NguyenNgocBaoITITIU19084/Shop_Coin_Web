@@ -37,7 +37,8 @@ public class SendEmail {
                     InternetAddress.parse(email)
             );
             message.setSubject(sub);
-            message.setText("Dear "+userName+",/n"+text);
+            
+            message.setContent("Dear "+userName+", <br>"+text,"text/html");
 
             Transport.send(message);
 
