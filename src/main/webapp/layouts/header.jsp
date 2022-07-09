@@ -6,6 +6,9 @@
 			<div class="col-lg-6 col-md-6">
 				<div class="switcher"></div>
 			</div>
+			<%
+				if (session.getAttribute("AccountName") != null) {
+			%>
 			<div class="col-lg-6 col-md-6">
 				<div class="header_links">
 					<ul>
@@ -17,6 +20,19 @@
 					</ul>
 				</div>
 			</div>
+			<%} %>
+			<%
+			if (session.getAttribute("AdminController") != null) { %>
+			
+			<div class="col-lg-6 col-md-6">
+				<div class="header_links">
+					<ul>
+						<li><a href="LogoutServlet" title="Login">Logout</a></li>
+					</ul>
+				</div>
+			</div>
+			<% } %>
+			
 		</div>
 	</div>
 	<!--header top end-->
@@ -30,6 +46,7 @@
 						alt=""></a>
 				</div>
 			</div>
+			<%if (session.getAttribute("AccountName") != null) { %>
 			<div class="col-lg-9 col-md-9">
 				<div class="header_right_info">
 					<div class="search_bar">
@@ -40,15 +57,14 @@
 							</button>
 						</form>
 					</div>
-					<% if (session.getAttribute("AccountName") != null) {
+					<% 
 						String userName = (String) session.getAttribute("userName");
 						float Balance = (float) session.getAttribute("Balance");
 					%>
 						<p> Hi, <%=userName%> - $<%=Balance %>USDT</p>
-					<% } %>
-
 				</div>
 			</div>
+			<% } %>
 		</div>
 	</div>
 	<!--header middel end-->

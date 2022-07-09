@@ -169,24 +169,37 @@ if (session.getAttribute("AdminController") == null) {
 							<!--register area start-->
 							<div class="col-lg-6 col-md-6">
 								<div class="account_form register">
-									<h2>Insert New Brand</h2>
-									<form action="InsertBrand" method="POST">
+									<h2>Insert New Bank</h2>
+									<form action="InsertBank" method="POST">
 										<p>
-											<label>New Brand Name <span>*</span></label> <input
-												type="text" name="brand">
+											<label>New Bank Name <span>*</span></label> <input
+												type="text" name="bank">
 										</p>
-										
+										<%
+											String checkingIBank = (String) session.getAttribute("checkingIBank");
+											String smgIB = (String) session.getAttribute("smgIBank");
+											if("errorBank".equals(checkingIBank)){ %>
+												<p style="color:red;"><%= smgIB %></p>	
+										<%	}
+										%>
 										<div class="login_submit">
 											<button type="submit">Insert</button>
 										</div>
 									</form>
 									<form action="DeleteBrand" method="POST">
 										<p>
-											<label>Select Brand Name to Delete <span>*</span></label> <select
-												name="brandDel">
-												
-												<option value=""></option>
-												
+											<label>Select Bank Name to Delete <span>*</span></label> 
+											<select name="bankID">
+												<%
+													BankDAO daoBank = new BankDAO();
+													List<Bank> listBank = daoBank.getAllBank();
+													if(!listBank.isEmpty()){
+														for(Bank b:listBank){ %>
+															<option value="<%= b.getBankID() %>"><%= b.getBankName() %></option>
+													<%	}
+													}
+												%>
+													
 											</select>
 										</p>
 										

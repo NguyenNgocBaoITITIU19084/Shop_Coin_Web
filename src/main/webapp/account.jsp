@@ -178,10 +178,22 @@ if (session.getAttribute("AccountName") == null) {
 											<div class="login_form_container">
 												<div class="account_login_form">
 													<form action="#" method="POST" >
+														<label style="color:red">Account Name: <%= detail.getAccountName() %></label><br>
 														<label>Bank Name</label> 
-														<input type="text" name="first-name"> 
-														<label>Account Name: <%= detail.getAccountName() %></label>
-														<label>Account Number</label> <input type="text" name="email-name">
+														<select name="bankID">
+														<%
+															BankDAO daoBank = new BankDAO();
+															List<Bank> listBank = daoBank.getAllBank();
+															if(!listBank.isEmpty()){
+																for(Bank b:listBank){ %>
+																	<option value="<%= b.getBankID() %>"><%= b.getBankName() %></option>
+														<%		}
+															}
+														%>
+														</select>
+														<br>
+														<label>Account Number</label> 
+														<input type="text" name="email-name">
 														<div class="login_submit">
 															<button type="submit">Update</button>
 														</div>
