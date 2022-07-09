@@ -12,6 +12,7 @@ import javax.servlet.http.HttpSession;
 
 import DAO.loginDAO;
 import Entity.Account;
+import Entity.AccountDetail;
 
 /**
  * Servlet implementation class LoginServlet
@@ -41,6 +42,7 @@ public class LoginServlet extends HttpServlet {
 			response.sendRedirect("login.jsp");
 		}else {
 			if("admin@shopcoin".equals(AccountName) && "admin".equals(pass)) {
+				session.setAttribute("AdminController", "AdminController");
 				response.sendRedirect("adminIndex.jsp");
 			}else {
 				loginDAO dao = new loginDAO();
@@ -51,7 +53,11 @@ public class LoginServlet extends HttpServlet {
 					session.setAttribute("msg", msg);
 					response.sendRedirect("login.jsp");
 				}else {
-					session.setAttribute(AccountName,AccountName);
+					session.setAttribute("AccountName",AccountName);
+					//set session by username
+					AccountDetail detail = dao.getUserNameByEmail(AccountName);
+					session.setAttribute("userName", detail.getUserName());
+					session.setAttribute("Balance",detail.getBalance());
 					response.sendRedirect("index.jsp");
 				}
 			}
