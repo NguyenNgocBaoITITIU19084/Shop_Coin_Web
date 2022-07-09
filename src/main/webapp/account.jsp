@@ -78,6 +78,8 @@ if (session.getAttribute("AccountName") == null) {
 												Detail</a></li>
 										<li><a href="#account-details" data-toggle="tab"
 											class="nav-link">Payment Infor</a></li>
+											<li><a href="#create-deposit" data-toggle="tab"
+											class="nav-link">Create-Deposit</a></li>
 										<li><a href="LogoutServlet" class="nav-link">logout</a></li>
 									</ul>
 								</div>
@@ -177,8 +179,9 @@ if (session.getAttribute("AccountName") == null) {
 										<div class="login">
 											<div class="login_form_container">
 												<div class="account_login_form">
-													<form action="#" method="POST" >
+													<form action="UpdatePayment" method="POST" >
 														<label style="color:red">Account Name: <%= detail.getAccountName() %></label><br>
+														
 														<label>Bank Name</label> 
 														<select name="bankID">
 														<%
@@ -193,7 +196,45 @@ if (session.getAttribute("AccountName") == null) {
 														</select>
 														<br>
 														<label>Account Number</label> 
-														<input type="text" name="email-name">
+														<input type="text" name="account-number">
+														<%
+															String checkingUpdate = (String) session.getAttribute("checkingUpdate");
+															String smgU = (String) session.getAttribute("smgUpdate");
+															if("notification".equals(checkingUpdate)){ %>
+																<p style="color:red"><%= smgU %></p>	
+														<%	}
+														%>
+														<div class="login_submit">
+															<button type="submit">Update</button>
+														</div>
+													</form>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="tab-pane fade" id="create-deposit">
+										<h3>Create Deposit</h3>
+										<div class="login">
+											<div class="login_form_container">
+												<div class="account_login_form">
+													<form action="CreateDeposit" method="POST" >
+														<label style="color:red">Deposit ID: </label><br>
+														<label style="color:red">Account Name: <%= detail.getAccountName() %></label><br>
+														
+														<label>Bank Name</label> 
+														<select name="bankID">
+														<%
+															if(!listBank.isEmpty()){
+																for(Bank b:listBank){ %>
+																	<option value="<%= b.getBankID() %>"><%= b.getBankName() %></option>
+														<%		}
+															}
+														%>
+														</select>
+														<br>
+														<label>Amount(USDT)</label> 
+														<input type="text" name="amount">
+														
 														<div class="login_submit">
 															<button type="submit">Update</button>
 														</div>

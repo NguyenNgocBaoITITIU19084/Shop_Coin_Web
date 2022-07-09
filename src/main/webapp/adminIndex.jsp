@@ -186,7 +186,7 @@ if (session.getAttribute("AdminController") == null) {
 											<button type="submit">Insert</button>
 										</div>
 									</form>
-									<form action="DeleteBrand" method="POST">
+									<form action="DeleteBank" method="POST">
 										<p>
 											<label>Select Bank Name to Delete <span>*</span></label> 
 											<select name="bankID">
@@ -202,7 +202,13 @@ if (session.getAttribute("AdminController") == null) {
 													
 											</select>
 										</p>
-										
+										<%
+											String checkingDBank = (String) session.getAttribute("checkingDBank");
+											String smgDB = (String) session.getAttribute("smgDBank");
+											if("errorBank".equals(checkingDBank)){ %>
+												<p style="color:red;"><%= smgDB %></p>	
+										<%	}
+										%>
 										<div class="login_submit">
 											<button type="submit">Delete</button>
 										</div>

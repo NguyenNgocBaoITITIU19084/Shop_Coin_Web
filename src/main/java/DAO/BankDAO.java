@@ -45,4 +45,19 @@ public class BankDAO {
 		}
 		return brand;
 	}
+	public String DeleteBank(int bankID){
+		String result = "successfully";
+		try {
+			String query = "delete from bank where bankID = ?";
+			ConnectionProvider con = new ConnectionProvider();
+			PreparedStatement pst = con.getConnection().prepareStatement(query);
+			pst.setInt(1, bankID);
+			pst.executeUpdate();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			result = "failed";
+		}
+		return result;
+	}
 }

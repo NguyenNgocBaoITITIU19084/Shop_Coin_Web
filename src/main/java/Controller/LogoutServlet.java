@@ -18,6 +18,8 @@ public class LogoutServlet extends HttpServlet {
 		request.getSession().removeAttribute("AccountName");
 		request.getSession().removeAttribute("userName");
 		request.getSession().removeAttribute("Balance");
+		request.getSession().removeAttribute("DepositVND");
+		request.getSession().removeAttribute("amount");
 		response.sendRedirect("login.jsp");
 	}
 
