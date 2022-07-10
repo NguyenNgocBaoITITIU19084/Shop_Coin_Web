@@ -53,4 +53,20 @@ public class AccountDetailDAO {
 		}
 		return result;
 	}
+	public String InsertBalanceByAccountID(int AccountID,double balance){
+		String result = "successfully";
+		try {
+			ConnectionProvider con = new ConnectionProvider();
+			String query = "update accountdetail set balance = ? where accountID = ?";
+			PreparedStatement pst = con.getConnection().prepareStatement(query);
+			pst.setDouble(1, balance);
+			pst.setInt(2, AccountID);
+			pst.executeUpdate();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			result = "failed";
+		}
+		return result;
+	}
 }

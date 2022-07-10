@@ -60,4 +60,39 @@ public class BankDAO {
 		}
 		return result;
 	}
+	public String getAdminDepositInfor(int BankID){
+		String infor ="";
+		try {
+			String query ="select * from Bank as b join adminDeposit as a on b.BankID = a.adminDepositBankID where BankID = ?";
+			ConnectionProvider con = new ConnectionProvider();
+			PreparedStatement pst = con.getConnection().prepareStatement(query);
+			pst.setInt(1, BankID);
+			ResultSet rs = pst.executeQuery();
+			while(rs.next()) {
+				String name = rs.getString("adminDepositName");
+				String BankName = rs.getString("BankName");
+				infor = name + " - "+BankName;
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		return infor;
+	}
+	public int getAdminIDByBankID(int BankID){
+		int adminID = 0;
+		try {
+			String query ="select * from Bank as b join adminDeposit as a on b.BankID = a.adminDepositBankID where BankID = ?";
+			ConnectionProvider con = new ConnectionProvider();
+			PreparedStatement pst = con.getConnection().prepareStatement(query);
+			pst.setInt(1, BankID);
+			ResultSet rs = pst.executeQuery();
+			while(rs.next()) {
+				adminID = rs.getInt("adminDepositID");
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		return adminID;
+	}
 }
+

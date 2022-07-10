@@ -66,49 +66,60 @@ if (session.getAttribute("AccountName") == null) {
                             <div class="checkout_form">
                                     <div class="row">
                                         <%
+                                        //get bankid
+                                        int bankID = (int) session.getAttribute("bankId");
+                                        // calculate USD to VND
                                         float amount = (float) session.getAttribute("amount");
-                                   		double DepositVND = (double) amount * 22000;
+                                        USDtoVND change = new USDtoVND();
+                                        String VNDDeposit = change.USDtoVND(amount);
+                                        // get detail of user
 										String email = (String) session.getAttribute("AccountName");
 										AccountDetailDAO detailDAO = new AccountDetailDAO();
 										AccountDetail detail = detailDAO.getDetailByEmail(email);
+										// get admin Infor
+										BankDAO daoBank = new BankDAO();
+										String inforAdmin = daoBank.getAdminDepositInfor(bankID);
+										
 										%>
                                         <div class="col-lg-6 col-md-6">
-                                            <form action="#">    
+                                            <form action="ConfirmCheckOut" method="POST">    
                                                 <h3>Your Deposit</h3> 
                                                 <div class="order_table table-responsive mb-30">
                                                     <table>
                                                       
                                                         <tbody>
+                                                          
                                                             <tr>
-                                                                <td><p><b>Deposit ID: </b></p></td>
+                                                                <td><p><b>Account Name: </b></p></td>
+                                                                <td><p><%= detail.getAccountName() %></p></td>
+                                                            
                                                             </tr>
                                                             <tr>
-                                                                <td><p><b>Account Name:<%= detail.getAccountName() %> </b></p></td>
+                                                                <td><p><b>Amount USDT: </b></p></td>
+                                                                <td><p>$<%= amount %></p></td>  
                                                             </tr>
                                                             <tr>
-                                                                <td><p><b>Amount USDT: <%= amount %></b></p></td>  
+                                                                <td><p><b>Deposit VND: </b></p></td>
+                                                                <td><p><%= VNDDeposit %>VND</p></td>
                                                             </tr>
                                                             <tr>
-                                                                <td><p><b>Deposit VND: <%= DepositVND %></b></p></td>
+                                                                <td><p><b>Method: </b></p></td>
+                                                                <td><p><%= inforAdmin %></p></td>
                                                             </tr>
                                                         </tbody>
-                                                        <tfoot>
-                                                            <tr>
-                                                                <th>Cart Subtotal</th>
-                                                                <td>$215.00</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <th>Shipping</th>
-                                                                <td><strong>$5.00</strong></td>
-                                                            </tr>
-                                                            <tr class="order_total">
-                                                                <th>Order Total</th>
-                                                                <td><strong>$220.00</strong></td>
-                                                            </tr>
-                                                        </tfoot>
+                                                        
                                                     </table>     
                                                 </div>
-                                                
+                                                <%
+													String checkingLogin = (String) session.getAttribute("checkingDeposit");
+													String msg = (String) session.getAttribute("smgDeposit");
+													if("error".equals(checkingLogin)){ %>
+														<p style="color:red"><%= msg %></p>	
+												<%	}
+												%>
+                                                <div class="login_submit">
+													<button type="submit">Confirm</button>
+												</div>
                                             </form>         
                                         </div>
                                     </div> 

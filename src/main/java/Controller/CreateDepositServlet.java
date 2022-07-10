@@ -12,6 +12,7 @@ import javax.servlet.http.HttpSession;
 
 import DAO.AccountDetailDAO;
 import Entity.AccountDetail;
+import Entity.Deposit;
 
 /**
  * Servlet implementation class CreateDepositServlet
@@ -33,11 +34,13 @@ public class CreateDepositServlet extends HttpServlet {
 		String amountString = request.getParameter("amount");
 		float amount = Float.parseFloat(amountString);
 		int bankId = Integer.parseInt(request.getParameter("bankID"));
+		
+		
+		
 		String AccountName = (String) session.getAttribute("AccountName");
 		AccountDetailDAO daoDetail = new AccountDetailDAO();
 		AccountDetail detailAccount = daoDetail.getDetailByEmail(AccountName);
 		int AccountID = detailAccount.getAccountID();
-		
 		
 		
 		if(amountString.length() == 0 || amountString.length() > 11 ) {
@@ -46,6 +49,7 @@ public class CreateDepositServlet extends HttpServlet {
 			session.setAttribute("smgDeposit", smg);
 			response.sendRedirect("account.jsp");
 		}else {
+			session.setAttribute("bankId", bankId);
 			session.setAttribute("amount", amount);
 			response.sendRedirect("checkout.jsp");
 		}

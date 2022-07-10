@@ -1,3 +1,9 @@
+<%@page import="java.util.List" %>
+<%@page import="java.util.ArrayList" %>
+<%@page import="Context.*" %>
+<%@page import="DAO.*" %>
+<%@page import="Controller.*" %>
+<%@page import="Entity.*" %>
 <!--header area -->
 <div class="header_area">
 	<!--header top-->
@@ -58,10 +64,11 @@
 						</form>
 					</div>
 					<% 
-						String userName = (String) session.getAttribute("userName");
-						float Balance = (float) session.getAttribute("Balance");
+						String email = (String) session.getAttribute("AccountName");
+						AccountDetailDAO daoDetail = new AccountDetailDAO();
+						AccountDetail detail = daoDetail.getDetailByEmail(email);
 					%>
-						<p> Hi, <%=userName%> - $<%=Balance %>USDT</p>
+						<p> Hi, <%= detail.getAccountName() %> - <%= detail.getBalance() %>USDT</p>
 				</div>
 			</div>
 			<% } %>
