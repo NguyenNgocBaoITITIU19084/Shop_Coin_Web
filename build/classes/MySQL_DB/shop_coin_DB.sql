@@ -26,9 +26,9 @@ create table Coin(
 	CoinID int not null unique auto_increment,
     CoinName varchar(100) not null unique,
     price float(10,2) not null,
-    highestPrice float(10,2),
-    lowestPrice float(10,2),
-    quantityCoin float(10,2),
+    highestPrice double(10,2),
+    lowestPrice double(10,2),
+    quantityCoin double(10,2),
     primary key (CoinID)
 );
 create table OwnedCoin(
@@ -39,3 +39,27 @@ create table OwnedCoin(
     foreign key (AccountID) references Account(AccountID),
     foreign key (CoinID) references Coin(CoinID)
 );
+create table adminDeposit(
+	adminDepositID int not null unique auto_increment,
+    adminDepositName varchar(100) not null,
+    adminDepositBankID int not null,
+    primary key (adminDepositID)
+);
+create table Deposit(
+	AccountID int not null,
+    BankID int not null,
+    depositUSTD double(10,2) not null,
+    adminDepositID int not null,
+    foreign key (AccountID) references Account(AccountID),
+    foreign key (adminDepositID) references adminDeposit(adminDepositID)
+);
+insert into Bank(BankName) 
+value
+('TechCombank'),
+('ABC'),
+('VietComBank');
+insert into adminDeposit(adminDepositName,adminDepositBankID)
+value
+('Bao Nguyen',2),
+('Dang Binh', 1),
+('Thai Nguyen',3);

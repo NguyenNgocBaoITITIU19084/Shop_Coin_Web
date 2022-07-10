@@ -73,7 +73,7 @@ if (session.getAttribute("AccountName") == null) {
 											class="nav-link active">Dashboard</a></li>
 										<li><a href="#orders" data-toggle="tab" class="nav-link">Orders</a></li>
 										<li><a href="#downloads" data-toggle="tab"
-											class="nav-link">Downloads</a></li>
+											class="nav-link">Deposit History</a></li>
 										<li><a href="#address" data-toggle="tab" class="nav-link">Account
 												Detail</a></li>
 										<li><a href="#account-details" data-toggle="tab"
@@ -129,39 +129,43 @@ if (session.getAttribute("AccountName") == null) {
 										</div>
 									</div>
 									<div class="tab-pane fade" id="downloads">
-										<h3>Downloads</h3>
+										<h3>Deposit History</h3>
 										<div class="coron_table table-responsive">
 											<table class="table">
 												<thead>
 													<tr>
-														<th>Product</th>
-														<th>Downloads</th>
-														<th>Expires</th>
-														<th>Download</th>
+														<th>AccountName</th>
+														<th>BankName</th>
+														<th>depositUSTD</th>
+														<th>adminDepositName</th>
 													</tr>
 												</thead>
 												<tbody>
-													<tr>
-														<td>Shopnovilla - Free Real Estate PSD Template</td>
-														<td>May 10, 2018</td>
-														<td><span class="danger">Expired</span></td>
-														<td><a href="#" class="view">Click Here To
-																Download Your File</a></td>
-													</tr>
-													<tr>
-														<td>Organic - ecommerce html template</td>
-														<td>Sep 11, 2018</td>
-														<td>Never</td>
-														<td><a href="#" class="view">Click Here To
-																Download Your File</a></td>
-													</tr>
+												
+												<%
+													String email = (String) session.getAttribute("AccountName");
+													DepositDAO daoDeposit = new DepositDAO();
+													List<DepositHistory> history = daoDeposit.getDepositHistory(email);
+													if(!history.isEmpty()){
+														for(DepositHistory h:history){ %>
+														<tr>
+															<td><%= h.getAccountName() %></td>
+															<td><%= h.getBankName() %></td>
+															<td><%= h.getDepositUSTD() %></td>
+															<td><%= h.getAdminDepositName() %></td>
+														</tr>
+													<%	}
+													}
+												%>
+													
+													
 												</tbody>
 											</table>
 										</div>
 									</div>
 									<div class="tab-pane" id="address">
 										<%
-										String email = (String) session.getAttribute("AccountName");
+										
 										AccountDetailDAO detailDAO = new AccountDetailDAO();
 										AccountDetail detail = detailDAO.getDetailByEmail(email);
 										%>

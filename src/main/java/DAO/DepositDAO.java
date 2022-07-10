@@ -1,9 +1,15 @@
 package DAO;
 
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
 
 import Context.ConnectionProvider;
 import Entity.Account;
+import Entity.Deposit;
+import Entity.DepositHistory;
+
 
 public class DepositDAO {
 	public String InsertDeposit(int AccountID,int bankID, double depositUSTD, int adminDepositID){
@@ -23,5 +29,26 @@ public class DepositDAO {
 			result = "failed";
 		}
 		return result;
+	}
+	public List<DepositHistory> getDepositHistory(String email){
+		List<DepositHistory> depositHis = new ArrayList<DepositHistory>();
+		try {
+			String query ="select AccountName,BankName,depositUSTD,adminDepositName from deposit as d join Account as a on d.AccountID = a.AccountID join bank as b on d.BankID = b.BankID join admindeposit as ad on d.adminDepositID = ad.adminDepositID where AccountName = ?";
+			ConnectionProvider con = new ConnectionProvider();
+			PreparedStatement pst = con.getConnection().prepareStatement(query);
+			pst.setString(1, email);
+			ResultSet rs = pst.executeQuery();
+			while(rs.next()) {
+				DepositHistory row = new DepositHistory();
+				row.setAccountName(rs.getString("AccountName"));
+				row.setBankName(rs.getString("BankName"));
+				row.setDepositUSTD(rs.getDouble("depositUSTD"));
+				row.setAdminDepositName(rs.getString("adminDepositName"));
+				depositHis.add(row);
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		return depositHis;
 	}
 }
