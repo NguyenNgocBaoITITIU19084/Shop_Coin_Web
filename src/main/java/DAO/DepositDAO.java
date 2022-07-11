@@ -33,7 +33,7 @@ public class DepositDAO {
 	public List<DepositHistory> getDepositHistory(String email){
 		List<DepositHistory> depositHis = new ArrayList<DepositHistory>();
 		try {
-			String query ="select AccountName,BankName,depositUSTD,adminDepositName from deposit as d join Account as a on d.AccountID = a.AccountID join bank as b on d.BankID = b.BankID join admindeposit as ad on d.adminDepositID = ad.adminDepositID where AccountName = ?";
+			String query ="select AccountName,BankName,depositUSTD,adminDepositName,dayCreated,timeCreated from deposit as d join Account as a on d.AccountID = a.AccountID join bank as b on d.BankID = b.BankID join admindeposit as ad on d.adminDepositID = ad.adminDepositID where AccountName = ?";
 			ConnectionProvider con = new ConnectionProvider();
 			PreparedStatement pst = con.getConnection().prepareStatement(query);
 			pst.setString(1, email);
@@ -44,6 +44,8 @@ public class DepositDAO {
 				row.setBankName(rs.getString("BankName"));
 				row.setDepositUSTD(rs.getDouble("depositUSTD"));
 				row.setAdminDepositName(rs.getString("adminDepositName"));
+				row.setDateCreated(rs.getString("dayCreated"));
+				row.setTimeCreated(rs.getString("timeCreated"));
 				depositHis.add(row);
 			}
 		}catch(Exception e) {

@@ -138,6 +138,8 @@ if (session.getAttribute("AccountName") == null) {
 														<th>BankName</th>
 														<th>depositUSTD</th>
 														<th>adminDepositName</th>
+														<th>Created Day</th>
+														<th>Created Time</th>
 													</tr>
 												</thead>
 												<tbody>
@@ -153,6 +155,8 @@ if (session.getAttribute("AccountName") == null) {
 															<td><%= h.getBankName() %></td>
 															<td><%= h.getDepositUSTD() %></td>
 															<td><%= h.getAdminDepositName() %></td>
+															<td><%= h.getDateCreated() %></td>
+															<td><%= h.getTimeCreated() %></td>
 														</tr>
 													<%	}
 													}

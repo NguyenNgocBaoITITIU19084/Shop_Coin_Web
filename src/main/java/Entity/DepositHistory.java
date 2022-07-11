@@ -5,6 +5,20 @@ public class DepositHistory {
 	private String BankName;
 	private double depositUSTD;
 	private String adminDepositName;
+	private String dateCreated;
+	private String timeCreated;
+	public String getTimeCreated() {
+		return timeCreated;
+	}
+	public void setTimeCreated(String timeCreated) {
+		this.timeCreated = timeCreated;
+	}
+	public String getDateCreated() {
+		return dateCreated;
+	}
+	public void setDateCreated(String dateCreated) {
+		this.dateCreated = dateCreated;
+	}
 	public String getAccountName() {
 		return AccountName;
 	}
@@ -41,8 +55,19 @@ public class DepositHistory {
 		this.depositUSTD = depositUSTD;
 		this.adminDepositName = adminDepositName;
 	}
+	public DepositHistory(String accountName, String bankName, double depositUSTD, String adminDepositName,
+			String dateCreated, String timeCreated) {
+		super();
+		AccountName = accountName;
+		BankName = bankName;
+		this.depositUSTD = depositUSTD;
+		this.adminDepositName = adminDepositName;
+		this.dateCreated = dateCreated;
+		this.timeCreated = timeCreated;
+	}
 	public DepositHistory() {
 		super();
 	}
+	
 	
 }

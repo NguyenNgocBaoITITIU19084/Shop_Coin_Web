@@ -50,7 +50,9 @@ public class ConfirmCheckOutServlet extends HttpServlet {
 		String resultInsert = daoDeposit.InsertDeposit(AccountID, bankID,amount , adminID);
 		
 		if("successfully".equals(resultInsert)) {
-			String r = detailDAO.InsertBalanceByAccountID(AccountID, amount);
+			double existBalance = detailDAO.getBalanceExist(AccountID);
+			double newBalance = amount + existBalance;
+			String r = detailDAO.InsertBalanceByAccountID(AccountID, newBalance);
 			response.sendRedirect("index.jsp");
 		}else {
 			String checking = "error";

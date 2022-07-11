@@ -69,4 +69,21 @@ public class AccountDetailDAO {
 		}
 		return result;
 	}
+	public double getBalanceExist(int AccountID) {
+		double balance = 0;
+		try {
+			String query ="select balance from accountdetail where AccountID = ? ";
+			ConnectionProvider con = new ConnectionProvider();
+			PreparedStatement pst = con.getConnection().prepareStatement(query);
+			pst.setInt(1, AccountID);
+			ResultSet rs = pst.executeQuery();
+			while(rs.next()) {
+				balance = rs.getDouble("balance");
+			}
+
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		return balance; 
+	}
 }

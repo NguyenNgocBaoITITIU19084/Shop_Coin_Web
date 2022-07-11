@@ -19,9 +19,9 @@
 				<div class="header_links">
 					<ul>
 						<li><a href="contact.html" title="Contact">Contact</a></li>
-						<li><a href="wishlist.html" title="wishlist">My wishlist</a></li>
+						
 						<li><a href="account.jsp" title="My account">Dash Board</a></li>
-						<li><a href="cart.html" title="My cart">My cart</a></li>
+						
 						<li><a href="LogoutServlet" title="Login">Logout</a></li>
 					</ul>
 				</div>

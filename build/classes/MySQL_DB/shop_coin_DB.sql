@@ -50,6 +50,8 @@ create table Deposit(
     BankID int not null,
     depositUSTD double(10,2) not null,
     adminDepositID int not null,
+    dayCreated date default(curdate()),
+    timeCreated time default(CURRENT_TIME()),
     foreign key (AccountID) references Account(AccountID),
     foreign key (adminDepositID) references adminDeposit(adminDepositID)
 );
@@ -60,6 +62,6 @@ value
 ('VietComBank');
 insert into adminDeposit(adminDepositName,adminDepositBankID)
 value
-('Bao Nguyen',2),
+('Trang Nguyen',2),
 ('Dang Binh', 1),
 ('Thai Nguyen',3);

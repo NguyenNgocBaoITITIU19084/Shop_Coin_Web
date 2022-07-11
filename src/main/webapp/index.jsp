@@ -62,6 +62,10 @@ if (session.getAttribute("AccountName") == null) {
 							<div class="col-12">
 								<div class="table_desc wishlist">
 									<div class="cart_page table-responsive">
+									<%
+										getCoinInfor setupCoin = new getCoinInfor();
+										setupCoin.getCoin();
+									%>
 										<table>
 											<thead>
 												<tr>
