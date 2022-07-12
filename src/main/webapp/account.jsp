@@ -60,7 +60,12 @@ if (session.getAttribute("AccountName") == null) {
 					</div>
 				</div>
 				<!--breadcrumbs area end-->
-
+										<%
+										String email = (String) session.getAttribute("AccountName");
+										AccountDetailDAO detailDAO = new AccountDetailDAO();
+										AccountDetail detail = detailDAO.getDetailByEmail(email);
+										int AccountID = detail.getAccountID();
+										%>
 				<!-- Start Maincontent  -->
 				<section class="main_content_area">
 					<div class="account_dashboard">
@@ -71,7 +76,7 @@ if (session.getAttribute("AccountName") == null) {
 									<ul role="tablist" class="nav flex-column dashboard-list">
 										<li><a href="#dashboard" data-toggle="tab"
 											class="nav-link active">Dashboard</a></li>
-										<li><a href="#orders" data-toggle="tab" class="nav-link">Orders</a></li>
+										<li><a href="#orders" data-toggle="tab" class="nav-link">Owned Coin</a></li>
 										<li><a href="#downloads" data-toggle="tab"
 											class="nav-link">Deposit History</a></li>
 										<li><a href="#address" data-toggle="tab" class="nav-link">Account
@@ -97,33 +102,36 @@ if (session.getAttribute("AccountName") == null) {
 										</p>
 									</div>
 									<div class="tab-pane fade" id="orders">
-										<h3>Orders</h3>
+										<h3>Owned Coin</h3>
 										<div class="coron_table table-responsive">
+										
 											<table class="table">
 												<thead>
 													<tr>
-														<th>Order</th>
-														<th>Date</th>
-														<th>Status</th>
-														<th>Total</th>
+														<th>Coin Name</th>
+														<th>Owned Quantity</th>
+														<th>Total Price</th>
 														<th>Actions</th>
 													</tr>
 												</thead>
 												<tbody>
-													<tr>
-														<td>1</td>
-														<td>May 10, 2018</td>
-														<td><span class="success">Completed</span></td>
-														<td>$25.00 for 1 item</td>
-														<td><a href="cart.html" class="view">view</a></td>
-													</tr>
-													<tr>
-														<td>2</td>
-														<td>May 10, 2018</td>
-														<td>Processing</td>
-														<td>$17.00 for 1 item</td>
-														<td><a href="cart.html" class="view">view</a></td>
-													</tr>
+												<%
+											
+													OwnedCoinDAO daoOwnedCoin = new OwnedCoinDAO();
+													List<OwnedCoinInfor> listCoin = daoOwnedCoin.getAllCoinByAccount(AccountID);
+														if(!listCoin.isEmpty()){
+															for(OwnedCoinInfor coin:listCoin){ %>
+																<tr>
+																	<td><%= coin.getCoinName() %></td>
+																	<td><%= coin.getQuantityOwned() %></td>
+																	<td><%= coin.getTotalPrice() %></td>
+																	<td class="product_total"><a href="#">Sale</a></td>
+																</tr>
+												<% 			}
+													}
+												%>
+													
+													
 												</tbody>
 											</table>
 										</div>
@@ -145,7 +153,7 @@ if (session.getAttribute("AccountName") == null) {
 												<tbody>
 												
 												<%
-													String email = (String) session.getAttribute("AccountName");
+													
 													DepositDAO daoDeposit = new DepositDAO();
 													List<DepositHistory> history = daoDeposit.getDepositHistory(email);
 													if(!history.isEmpty()){
@@ -168,11 +176,7 @@ if (session.getAttribute("AccountName") == null) {
 										</div>
 									</div>
 									<div class="tab-pane" id="address">
-										<%
 										
-										AccountDetailDAO detailDAO = new AccountDetailDAO();
-										AccountDetail detail = detailDAO.getDetailByEmail(email);
-										%>
 										<h4 class="billing-address">Account Detail</h4>
 										<p>
 											<b>Name: </b><%=detail.getUserName()%></p>

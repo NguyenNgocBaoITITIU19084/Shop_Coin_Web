@@ -25,10 +25,10 @@ create table AccountDetail(
 create table Coin(
 	CoinID int not null unique auto_increment,
     CoinName varchar(100) not null unique,
-    price float(10,2) not null,
+    price float(10,2) not null default 0.00,
     highestPrice double(10,2),
     lowestPrice double(10,2),
-    quantityCoin double(10,2),
+    quantityCoin double(10,2) default 2,
     primary key (CoinID)
 );
 create table OwnedCoin(
@@ -65,3 +65,15 @@ value
 ('Trang Nguyen',2),
 ('Dang Binh', 1),
 ('Thai Nguyen',3);
+insert into Coin(CoinName) 
+value
+('Bitcoin'),
+('Ethereum'),
+('Tether'),
+('USD Coin'),
+('BNB'),
+('Binance USD'),
+('XRP'),
+('Cardano'),
+('Solana'),
+('Dogecoin');

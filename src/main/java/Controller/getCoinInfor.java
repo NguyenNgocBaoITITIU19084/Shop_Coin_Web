@@ -42,7 +42,9 @@ public class getCoinInfor {
 			System.out.print("price: "+price.text()+"\t");
 			String priceCoin = price.text();
 			System.out.println();
-			
+			// replace all comma in String 
+			priceCoin = priceCoin.replace(",","");
+			System.out.println(priceCoin);  // prints "kushalhs, mayurvm, narendrabz"
 			//insert into database
 			CoinDAO daoCoin = new CoinDAO();
 			daoCoin.InsertCoinInfor(name, priceCoin);

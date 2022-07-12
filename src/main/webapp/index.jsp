@@ -62,58 +62,34 @@ if (session.getAttribute("AccountName") == null) {
 							<div class="col-12">
 								<div class="table_desc wishlist">
 									<div class="cart_page table-responsive">
-									<%
-										getCoinInfor setupCoin = new getCoinInfor();
-										setupCoin.getCoin();
-									%>
 										<table>
 											<thead>
 												<tr>
 													<th class="product_thumb">Image</th>
-													<th class="product_name">Product</th>
+													<th class="product_name">Coin</th>
 													<th class="product-price">Price</th>
-													<th class="product_quantity">Stock Status</th>
 													<th class="product_total">Add To Cart</th>
 												</tr>
 											</thead>
 											<tbody>
-												<tr>
-													
-													<td class="product_thumb"><a href="#"><img
-															src="assets\img\cart\cart17.jpg" alt=""></a></td>
-													<td class="product_name"><a href="#">Handbag
-															fringilla</a></td>
-													<td class="product-price">£65.00</td>
-													<td class="product_quantity">In Stock</td>
-													<td class="product_total"><a href="#">Add To Cart</a></td>
-
-
-												</tr>
-
-												<tr>
-													
-													<td class="product_thumb"><a href="#"><img
-															src="assets\img\cart\cart18.jpg" alt=""></a></td>
-													<td class="product_name"><a href="#">Handbags
-															justo</a></td>
-													<td class="product-price">£90.00</td>
-													<td class="product_quantity">In Stock</td>
-													<td class="product_total"><a href="#">Add To Cart</a></td>
-
-
-												</tr>
-												<tr>
-													
-													<td class="product_thumb"><a href="#"><img
-															src="assets\img\cart\cart19.jpg" alt=""></a></td>
-													<td class="product_name"><a href="#">Handbag elit</a></td>
-													<td class="product-price">£80.00</td>
-													<td class="product_quantity">In Stock</td>
-													<td class="product_total"><a href="#">Add To Cart</a></td>
-
-
-												</tr>
-
+											<%
+												getCoinInfor setupCoin = new getCoinInfor();
+												setupCoin.getCoin();
+												CoinDAO daoCoin = new CoinDAO();
+												List<Coin> listCoin = daoCoin.getAllCoin();
+												request.setAttribute("listCoin", listCoin);
+												if(!listCoin.isEmpty()){
+													for(Coin c:listCoin){ %>
+														<tr>
+															<td class="product_thumb"><a href="#"><img src="assets\img\cart\cart17.jpg" alt=""></a></td>
+															<td class="product_name"><a href="#"><%= c.getCoinName() %></a></td>
+															<td class="product-price">$<%= c.getPrice() %></td>
+															<td class="product_total"><a href="BuyCoin?CoinID=<%= c.getCoinID()%>">Buy Now</a></td>
+														</tr>
+												<%	}
+												}
+											%>
+												
 											</tbody>
 										</table>
 									</div>
