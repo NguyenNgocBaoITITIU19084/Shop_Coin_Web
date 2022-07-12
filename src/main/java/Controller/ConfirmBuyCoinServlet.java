@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import DAO.AccountDetailDAO;
+import DAO.HistoryDAO;
 import DAO.OwnedCoinDAO;
 import Entity.AccountDetail;
 
@@ -51,7 +52,7 @@ public class ConfirmBuyCoinServlet extends HttpServlet {
 			session.setAttribute("msgConfirm", smg);
 			request.getRequestDispatcher("cartpage.jsp").forward(request, response);
 		}else {
-			
+			double total = price*quantity;
 			double remain = availableBalance - price*quantity;
 			if(remain < 0) {
 				request.setAttribute("CoinID", id);
@@ -72,6 +73,9 @@ public class ConfirmBuyCoinServlet extends HttpServlet {
 					String result = daoDetail.InsertBalanceByAccountID(userID, remain);
 					resultOwnedCoin =  daoOwnedCoin.updateQuantityExistCoin(quantity, userID, id);
 				}
+				// add into history
+				HistoryDAO daoHis = new HistoryDAO();
+				String resultHis = daoHis.InsertHistoryByAccountID(userID, total, id, quantity, "buy");
 				request.getSession().removeAttribute("CoinID");
 				response.sendRedirect("index.jsp");
 			}

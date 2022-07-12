@@ -32,10 +32,9 @@ create table Coin(
     primary key (CoinID)
 );
 create table OwnedCoin(
-	AccountID int not null unique auto_increment,
-    CoinID int not null unique,
-    quantityOwned float(10,2) default 0.00,
-    primary key (AccountID),
+	AccountID int not null,
+    CoinID int not null,
+    quantityOwned int not null,
     foreign key (AccountID) references Account(AccountID),
     foreign key (CoinID) references Coin(CoinID)
 );
@@ -54,6 +53,17 @@ create table Deposit(
     timeCreated time default(CURRENT_TIME()),
     foreign key (AccountID) references Account(AccountID),
     foreign key (adminDepositID) references adminDeposit(adminDepositID)
+);
+create table History(
+	AccountID int not null,
+    BankID int not null,
+	price double(10,2) not null,
+	CoinID int not null,
+    quantity int not null,
+    actionStatus varchar(10) not null,
+	foreign key (AccountID) references Account(AccountID),
+	foreign key (CoinID) references Coin(CoinID),
+    foreign key (BankID) references Bank(BankID)
 );
 insert into Bank(BankName) 
 value

@@ -56,14 +56,12 @@ create table Deposit(
 );
 create table History(
 	AccountID int not null,
-    BankID int not null,
 	price double(10,2) not null,
 	CoinID int not null,
     quantity int not null,
     actionStatus varchar(10) not null,
 	foreign key (AccountID) references Account(AccountID),
-	foreign key (CoinID) references Coin(CoinID),
-    foreign key (BankID) references Bank(BankID)
+	foreign key (CoinID) references Coin(CoinID)
 );
 insert into Bank(BankName) 
 value

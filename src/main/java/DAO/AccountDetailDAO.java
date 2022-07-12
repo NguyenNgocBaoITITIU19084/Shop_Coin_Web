@@ -45,7 +45,7 @@ public class AccountDetailDAO {
 			pst.setInt(3, AccountID);
 			pst.executeUpdate();
 			String turnOn = "SET FOREIGN_KEY_CHECKS = 1";
-			PreparedStatement pstOn = con.getConnection().prepareStatement(turnOff);
+			PreparedStatement pstOn = con.getConnection().prepareStatement(turnOn);
 			pstOn.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();
