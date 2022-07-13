@@ -169,7 +169,7 @@ if (session.getAttribute("AccountName") == null) {
 																	<td><%= coin.getCoinName() %></td>
 																	<td><%= coin.getQuantityOwned() %></td>
 																	<td><%= coin.getTotalPrice() %></td>
-																	<td class="product_total"><a href="#">Sale</a></td>
+																	<td class="product_total"><a href="SaleCoin?CoinID=<%= coin.getCoinID() %>">Sale</a></td>
 																</tr>
 												<% 			}
 													}

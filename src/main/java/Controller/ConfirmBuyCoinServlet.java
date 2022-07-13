@@ -68,14 +68,17 @@ public class ConfirmBuyCoinServlet extends HttpServlet {
 				if(quantityExistChecking == 0) {
 					String result = daoDetail.InsertBalanceByAccountID(userID, remain);
 					resultOwnedCoin =  daoOwnedCoin.InsertOwnedCoin(userID, id, quantity);
+					HistoryDAO daoHis = new HistoryDAO();
+					String resultHis = daoHis.InsertHistoryByAccountID(userID, total, id, quantity, "buy");
 				}else {
+					HistoryDAO daoHis = new HistoryDAO();
+					String resultHis = daoHis.InsertHistoryByAccountID(userID, total, id, quantity, "buy");
 					quantity = quantity + quantityExistChecking;
 					String result = daoDetail.InsertBalanceByAccountID(userID, remain);
 					resultOwnedCoin =  daoOwnedCoin.updateQuantityExistCoin(quantity, userID, id);
 				}
 				// add into history
-				HistoryDAO daoHis = new HistoryDAO();
-				String resultHis = daoHis.InsertHistoryByAccountID(userID, total, id, quantity, "buy");
+				
 				request.getSession().removeAttribute("CoinID");
 				response.sendRedirect("index.jsp");
 			}

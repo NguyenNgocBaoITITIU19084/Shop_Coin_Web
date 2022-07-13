@@ -83,4 +83,41 @@ public class OwnedCoinDAO {
 		}
 		return listCoin;
 	}
+	public OwnedCoinInfor getCoinByAccount(int AccountID, String CoinID){
+		OwnedCoinInfor Coin = null;
+		try {
+			String query ="select ow.CoinID,CoinName,price,quantityOwned, (quantityOwned*price) as total from OwnedCoin as ow join Coin as c on ow.CoinID = c.CoinID where AccountID = ? and ow.coinid = ?";
+			ConnectionProvider con = new ConnectionProvider();
+			PreparedStatement pst = con.getConnection().prepareStatement(query);
+			pst.setInt(1, AccountID);
+			pst.setString(2, CoinID);
+			ResultSet rs = pst.executeQuery();
+			while(rs.next()) {
+				Coin = new OwnedCoinInfor();
+				Coin.setCoinID(rs.getInt("CoinID"));
+				Coin.setCoinName(rs.getString("CoinName"));
+				Coin.setQuantityOwned(rs.getInt("quantityOwned"));
+				Coin.setTotalPrice(rs.getDouble("total"));
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		return Coin;
+	}
+	public String DeleteOwnedCoin(int AccountID,String CoinID){
+		String result = "successfully";
+		try {
+			String query = "delete from ownedcoin where AccountID = ? and CoinID = ?";
+			ConnectionProvider con = new ConnectionProvider();
+			PreparedStatement pst = con.getConnection().prepareStatement(query);
+			pst.setInt(1, AccountID);
+			pst.setString(2, CoinID);
+			pst.executeUpdate();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			result = "failed";
+		}
+		return result;
+	}
 }

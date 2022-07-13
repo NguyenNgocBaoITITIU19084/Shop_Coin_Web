@@ -28,6 +28,7 @@ create table Coin(
     price float(10,2) not null default 0.00,
     highestPrice double(10,2),
     lowestPrice double(10,2),
+    quantityCoin double(10,2) default 0,
     primary key (CoinID)
 );
 create table OwnedCoin(
