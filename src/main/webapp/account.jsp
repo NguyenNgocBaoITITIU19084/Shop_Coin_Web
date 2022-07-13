@@ -76,6 +76,7 @@ if (session.getAttribute("AccountName") == null) {
 									<ul role="tablist" class="nav flex-column dashboard-list">
 										<li><a href="#dashboard" data-toggle="tab"
 											class="nav-link active">Dashboard</a></li>
+											<li><a href="#history" data-toggle="tab" class="nav-link">History</a></li>
 										<li><a href="#orders" data-toggle="tab" class="nav-link">Owned Coin</a></li>
 										<li><a href="#downloads" data-toggle="tab"
 											class="nav-link">Deposit History</a></li>
@@ -100,6 +101,49 @@ if (session.getAttribute("AccountName") == null) {
 												and billing addresses</a> and <a href="#">Edit your password
 												and account details.</a>
 										</p>
+									</div>
+									<div class="tab-pane fade" id="history">
+										<h3>History</h3>
+										<div class="coron_table table-responsive">
+										
+											<table class="table">
+												<thead>
+													<tr>
+														<th>Coin Name</th>
+														<th>Price</th>
+														<th>Quantity</th>
+														<th>Total Price</th>
+														<th>Date</th>
+														<th>Time</th>
+														<th>Actions</th>
+													</tr>
+												</thead>
+												<%
+													HistoryDAO daoHis = new HistoryDAO();
+													List<HistoryInfor> listHis = daoHis.getAllHistoryByAccountID(AccountID);
+													if(!listHis.isEmpty()){
+														for(HistoryInfor l:listHis){ %>
+															<tr>
+																<td><%= l.getCoinName() %></td>
+																<td>$<%= l.getPrice() %></td>
+																<td><%= l.getQuantity() %></td>
+																<td>$<%= l.getTotalPrice() %></td>
+																<td><%= l.getDate() %></td>'
+																<td><%= l.getTime() %></td>
+																<%
+																	if("buy".equals(l.getAction())){ %>
+																		<td style="color:red;"><%= l.getAction() %></td>	
+																<%	}else{ %>
+																		<td style="color:green;"><%= l.getAction() %></td>
+																<% }
+																%>
+															</tr>
+													<%	}
+													}
+												%>	
+												</tbody>
+											</table>
+										</div>
 									</div>
 									<div class="tab-pane fade" id="orders">
 										<h3>Owned Coin</h3>

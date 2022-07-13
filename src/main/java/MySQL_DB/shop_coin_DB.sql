@@ -28,7 +28,7 @@ create table Coin(
     price float(10,2) not null default 0.00,
     highestPrice double(10,2),
     lowestPrice double(10,2),
-    quantityCoin double(10,2) default 2,
+    quantityCoin double(10,2) default 0,
     primary key (CoinID)
 );
 create table OwnedCoin(
@@ -60,6 +60,8 @@ create table History(
 	CoinID int not null,
     quantity int not null,
     actionStatus varchar(10) not null,
+    dayCreated date default(curdate()),
+    timeCreated time default(CURRENT_TIME()),
 	foreign key (AccountID) references Account(AccountID),
 	foreign key (CoinID) references Coin(CoinID)
 );

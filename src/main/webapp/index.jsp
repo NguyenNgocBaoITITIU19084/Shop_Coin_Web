@@ -65,7 +65,7 @@ if (session.getAttribute("AccountName") == null) {
 										<table>
 											<thead>
 												<tr>
-													<th class="product_thumb">Image</th>
+													
 													<th class="product_name">Coin</th>
 													<th class="product-price">Price</th>
 													<th class="product_total">Add To Cart</th>
@@ -81,7 +81,7 @@ if (session.getAttribute("AccountName") == null) {
 												if(!listCoin.isEmpty()){
 													for(Coin c:listCoin){ %>
 														<tr>
-															<td class="product_thumb"><a href="#"><img src="assets\img\cart\cart17.jpg" alt=""></a></td>
+															
 															<td class="product_name"><a href="#"><%= c.getCoinName() %></a></td>
 															<td class="product-price">$<%= c.getPrice() %></td>
 															<td class="product_total"><a href="BuyCoin?CoinID=<%= c.getCoinID()%>">Buy Now</a></td>

@@ -28,7 +28,6 @@ create table Coin(
     price float(10,2) not null default 0.00,
     highestPrice double(10,2),
     lowestPrice double(10,2),
-    quantityCoin double(10,2) default 2,
     primary key (CoinID)
 );
 create table OwnedCoin(
@@ -56,14 +55,14 @@ create table Deposit(
 );
 create table History(
 	AccountID int not null,
-    BankID int not null,
 	price double(10,2) not null,
 	CoinID int not null,
     quantity int not null,
     actionStatus varchar(10) not null,
+    dayCreated date default(curdate()),
+    timeCreated time default(CURRENT_TIME()),
 	foreign key (AccountID) references Account(AccountID),
-	foreign key (CoinID) references Coin(CoinID),
-    foreign key (BankID) references Bank(BankID)
+	foreign key (CoinID) references Coin(CoinID)
 );
 insert into Bank(BankName) 
 value
