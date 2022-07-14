@@ -65,7 +65,7 @@ public class RegisterServlet extends HttpServlet {
 									String sub = "Shop.Coin.Test2 - Successfully Created An Account";
 									String text = "You had successfully created an Account at Shop Coin. Have good time for shooping!";
 									SendEmail send = new SendEmail();
-//									send.SendEmail(email,userName,sub,text,"register");
+									send.SendEmail(email,userName,sub,text,"register");
 									message = "Successfully Register Account";
 									session.setAttribute("checking", checking);
 									session.setAttribute("message", message);
