@@ -53,4 +53,21 @@ public class DepositDAO {
 		}
 		return depositHis;
 	}
+	
+//	Admin DAO =====================================================================================================================
+	public String InsertDepositAdmin(String AdminName, String BankID){
+		String result = "successfully";
+		try {
+			String query = "insert into adminDeposit(adminDepositName,adminDepositBankID) value (?,?);";
+			ConnectionProvider con = new ConnectionProvider();
+			PreparedStatement pst = con.getConnection().prepareStatement(query);
+			pst.setString(1, AdminName);
+			pst.setString(2, BankID);
+			pst.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+			result = "failed";
+		}
+		return result;
+	}
 }

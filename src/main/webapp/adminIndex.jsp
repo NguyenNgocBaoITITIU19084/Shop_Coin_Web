@@ -101,70 +101,7 @@ if (session.getAttribute("AdminController") == null) {
 					<!-- customer login start -->
 					<div class="customer_login">
 						<div class="row">
-							<!--login area start-->
-							<div class="col-lg-6 col-md-6">
-								<div class="account_form">
-									<h2>Insert New Product</h2>
-									<form action="InsertProduct" method="POST">
-
-										<p>
-											<label>New Product Id:<span>
-											</span></label>
-										</p>
-
-										<p>
-											<label>Category <span>*</span></label> <select name="cate">
-
-												<option value=""></option>
-
-											</select>
-										</p>
-										<p>
-											<label>Brand <span>*</span></label> <select name="brand">
-												<option value=""></option>
-											</select>
-										</p>
-										<p>
-											<label>Status <span>*</span></label> <select name="status">
-												<option value="1">Active</option>
-												<option value="0">Not Active</option>
-											</select>
-										</p>
-										<p>
-											<label>Product Name<span>*</span></label> <input type="text"
-												name="name">
-										</p>
-
-										<p>
-											<label>Image <span>*</span></label> <input type="text"
-												name="img">
-										</p>
-										<p>
-											<label>Price <span>*</span></label> <input type="text"
-												name="price">
-										</p>
-										<p>
-											<label>Discount <span>*</span></label> <input type="text"
-												name="discount">
-										</p>
-										<p>
-											<label>Description <span>*</span></label> <input type="text"
-												name="description">
-										</p>
-										<p>
-											<label>Quantity Instock <span>*</span></label> <input
-												type="text" name="quantity">
-										</p>
-										
-										<div class="login_submit">
-											<button type="submit">Insert</button>
-
-										</div>
-
-									</form>
-								</div>
-							</div>
-							<!--login area start-->
+							
 
 							<!--register area start-->
 							<div class="col-lg-6 col-md-6">
@@ -214,59 +151,41 @@ if (session.getAttribute("AdminController") == null) {
 										</div>
 									</form>
 								</div>
+								
+								
 								<div class="account_form register">
-									<h2>Insert New Category</h2>
-									<form action="InsertCategory" method="POST">
+									<h2>Insert New Admin's Bank</h2>
+									<form action="InsertAdminBank" method="POST">
 										<p>
-											<label>Category Name <span>*</span></label> <input
-												type="text" name="cate">
+											<label>New Admin's Name: <span></span></label> <input
+												type="text" name="adminName">
 										</p>
+										<label>Select Bank Name: <span></span></label> 
+											<select name="bankID">
+												<%
+													if(!listBank.isEmpty()){
+														for(Bank b:listBank){ %>
+															<option value="<%= b.getBankID() %>"><%= b.getBankName() %></option>
+													<%	}
+													}
+												%>
+												</select>
+										<%
+											String checkingABank = (String) session.getAttribute("checkingABank");
+											String smgABank = (String) session.getAttribute("smgABank");
+											if("error".equals(checkingABank)){ %>
+												<p style="color:red;"><%= smgABank %></p>	
+										<%	}
+										%>
 										
 										<div class="login_submit">
 											<button type="submit">Insert</button>
 										</div>
 									</form>
 
-									<form action="DeleteCategory" method="POST">
-										<p>
-											<label>Select Category Name to Delete <span>*</span></label>
-											<select name="CateDel">
-												
-												<option value=""></option>
-												
-											</select>
-										</p>
-										
-										<div class="login_submit">
-											<button type="submit">Delete</button>
-										</div>
-									</form>
+									
 								</div>
-								<div class="account_form register">
-									<h2>Insert New Sercurity Question</h2>
-									<form action="InsertQuestion" method="POST">
-										<p>
-											<label>Sercurity Question <span>*</span></label> <input
-												type="text" name="question">
-										</p>
-										
-										<div class="login_submit">
-											<button type="submit">Insert</button>
-										</div>
-									</form>
-									<form action="DeteleSercurity" method="POST">
-										<p>
-											<label>Select Sercurity Question to Delete <span>*</span></label>
-											<select name="sercurityDel">
-												
-											</select>
-										</p>
-										
-										<div class="login_submit">
-											<button type="submit">Detele</button>
-										</div>
-									</form>
-								</div>
+								
 							</div>
 							<!--register area end-->
 						</div>
